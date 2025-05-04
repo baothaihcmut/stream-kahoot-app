@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { WinstonModule } from 'nest-winston';
 import { instance } from './common/logger/winston.logger';
 import { ConfigService } from '@nestjs/config';
+import * as cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const appCtx = await NestFactory.createApplicationContext(AppModule);
@@ -13,6 +14,7 @@ async function bootstrap() {
       instance: logger,
     }),
   });
-  await app.listen(3000);
+  app.use(cookieParser());
+  await app.listen(cfgService.get<number>('port') || 3000);
 }
 bootstrap();

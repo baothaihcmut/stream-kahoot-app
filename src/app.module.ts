@@ -8,7 +8,6 @@ import { ErrorHandler } from './common/filters/error.filter';
 import { AppExceptionFilter } from './common/filters/app_exception.filter';
 import { HttpExceptionFilter } from './common/filters/http_exception.filter';
 import { TransformInterceptor } from './common/interceptors/transform.interceptor';
-import { UserContextInterceptor } from './common/interceptors/user_context.interceptor';
 
 @Module({
   imports: [CommonModule, UsersModule, AuthModule],
@@ -29,10 +28,6 @@ import { UserContextInterceptor } from './common/interceptors/user_context.inter
     {
       provide: APP_INTERCEPTOR,
       useClass: TransformInterceptor,
-    },
-    {
-      provide: APP_INTERCEPTOR,
-      useClass: UserContextInterceptor,
     },
   ],
 })

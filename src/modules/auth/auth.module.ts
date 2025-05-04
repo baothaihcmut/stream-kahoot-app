@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { CommonModule } from 'src/common/common.module';
-import { GoogleStrategy } from './passport/google.strategy';
 import { GoogleController } from './controllers/google.controller';
 import { UsersModule } from '../users/users.module';
 import { HttpModule } from '@nestjs/axios';
@@ -31,7 +30,7 @@ import { JwtUtilService } from './services/jwt.service';
     UsersModule,
     HttpModule,
   ],
-  providers: [GoogleStrategy, GoogleInteractor, JwtUtilService],
+  providers: [GoogleInteractor, JwtUtilService],
   controllers: [GoogleController],
 })
 export class AuthModule {}

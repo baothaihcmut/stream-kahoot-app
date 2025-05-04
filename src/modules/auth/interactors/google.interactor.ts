@@ -38,6 +38,9 @@ export class GoogleInteractor {
         userId: user.id,
       }),
     ]);
+    user.updateRefreshToken(refreshToken);
+    //update refresh token
+    await this.userRepo.updateUser(user);
     return new GoogleLoginOutput(accessToken, refreshToken);
   }
 }

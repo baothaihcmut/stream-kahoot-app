@@ -18,4 +18,8 @@ export class User {
   ): User {
     return new User(randomUUID(), firstName, lastName, email, picture);
   }
+
+  updateRefreshToken(refreshToken: string) {
+    this.currentRefreshToken = this.currentRefreshToken;
+  }
 }

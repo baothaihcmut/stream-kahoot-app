@@ -44,4 +44,19 @@ export class UserRepository {
       },
     });
   }
+
+  async updateUser(user: User): Promise<void> {
+    await this.prismaService.user.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        picture: user.picture,
+        currentRefreshToken: user.currentRefreshToken,
+      },
+    });
+  }
 }

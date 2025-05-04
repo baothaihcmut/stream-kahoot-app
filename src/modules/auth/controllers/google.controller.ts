@@ -12,7 +12,6 @@ import {
   ResponseMessage,
   ResponseStatus,
 } from 'src/common/decorators/response.decorator';
-import { GoogleLoginOutput } from '../presenters/google_login.presenter';
 import { GoogleInteractor } from '../interactors/google.interactor';
 import { GoogleOAuthGuard } from '../guards/google_auth.guard';
 import { Response } from 'express';

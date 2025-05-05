@@ -16,12 +16,6 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     if (err || !user) {
       throw new HttpException('token is required', HttpStatus.UNAUTHORIZED);
     }
-    const payload = user as AccessTokenPayload;
-    const userContext: UserContext = {
-      userId: payload.userId,
-      role: payload.role,
-    };
-    this.contextService.set(USER_CONTEXT_KEY, userContext);
     return user;
   }
 }

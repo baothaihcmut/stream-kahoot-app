@@ -12,7 +12,7 @@ export class ContextService {
   }
 
   get<T = any>(key: Symbol): T {
-    return this.cls.getStore().get(key.toString());
+    return this.cls.getStore()?.get(key.toString());
   }
 
   run(fn: () => void, initialData: Record<string, any> = {}) {

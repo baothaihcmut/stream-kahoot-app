@@ -30,7 +30,7 @@ export class UserRepository {
         email: email,
       },
     });
-    return this.mapToDomainUser(res);
+    return res ? this.mapToDomainUser(res) : null;
   }
   async createUser(user: User): Promise<void> {
     await this.prismaService.user.create({

@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { CommonModule } from 'src/common/common.module';
 import { GoogleController } from './controllers/google.controller';
 import { UsersModule } from '../users/users.module';
@@ -25,8 +25,7 @@ import { JwtUtilService } from './services/jwt.service';
       }),
     }),
     PassportModule,
-    ,
-    CommonModule,
+    forwardRef(() => CommonModule),
     UsersModule,
     HttpModule,
   ],

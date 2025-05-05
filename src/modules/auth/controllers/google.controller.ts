@@ -1,10 +1,10 @@
 import {
+  Body,
   Controller,
   Get,
   HttpStatus,
   Post,
-  Req,
-  Request,
+  Query,
   Res,
   UseGuards,
 } from '@nestjs/common';
@@ -13,9 +13,8 @@ import {
   ResponseStatus,
 } from 'src/common/decorators/response.decorator';
 import { GoogleInteractor } from '../interactors/google.interactor';
-import { GoogleOAuthGuard } from '../guards/google_auth.guard';
 import { Response } from 'express';
-
+import { GoogleExchangeTokenInput } from '../presenters/google_login.presenter';
 @Controller('google')
 export class GoogleController {
   constructor(private readonly googleInteractor: GoogleInteractor) {}
@@ -23,9 +22,11 @@ export class GoogleController {
   @Post('/exchange')
   @ResponseStatus(HttpStatus.CREATED)
   @ResponseMessage('exchange token success')
-  @UseGuards(GoogleOAuthGuard)
-  async exchangeToken(@Res() res: Response): Promise<null> {
-    const result = await this.googleInteractor.exchangeToken();
+  async exchangeToken(
+    @Query() input: GoogleExchangeTokenInput,
+    @Res({ passthrough: true }) res: Response,
+  ): Promise<{}> {
+    const result = await this.googleInteractor.exchangeToken(input);
     res.cookie('access_token', result.accessToken, {
       httpOnly: true,
       secure: false,
@@ -38,6 +39,13 @@ export class GoogleController {
       maxAge: 1000 * 60 * 60 * 24 * 3,
       domain: '.spsohcmut.xyz',
     });
-    return null;
+    return {};
+  }
+
+  @Get('/log-in')
+  async googleLogin(@Res() res: Response) {
+    const loginUrl =
+      'https://accounts.google.com/o/oauth2/auth?client_id=389043346779-q89gjc1tlu66lavd6r2toldoc5vrjbim.apps.googleusercontent.com&redirect_uri=http://localhost:3000/google/redirect&response_type=code&scope=email profile&access_type=offline&prompt=consent';
+    res.redirect(loginUrl);
   }
 }

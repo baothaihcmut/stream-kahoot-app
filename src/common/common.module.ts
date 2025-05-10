@@ -5,6 +5,7 @@ import { LoggerModule } from './logger/logger.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { KafkaModule } from './kafka/kafka.module';
 import { RedisModule } from './redis/redis.module';
+import { MapperModule } from './mapper/mapper.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { RedisModule } from './redis/redis.module';
     ContextModule,
     LoggerModule,
     PrismaModule,
+    MapperModule,
     // KafkaModule,
     // RedisModule,
   ],
@@ -20,6 +22,7 @@ import { RedisModule } from './redis/redis.module';
     ContextModule,
     LoggerModule,
     PrismaModule,
+    MapperModule,
     // KafkaModule,
   ],
 })

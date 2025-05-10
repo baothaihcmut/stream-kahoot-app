@@ -4,7 +4,7 @@ export class Choice {
   constructor(
     public readonly id: UUID,
     public text: string,
-    public isCorrect: boolean,
+    public isCorrect: boolean = false,
   ) {}
 }
 

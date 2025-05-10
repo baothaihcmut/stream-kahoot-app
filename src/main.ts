@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { WinstonModule } from 'nest-winston';
 import { instance } from './common/logger/winston.logger';
 import { ConfigService } from '@nestjs/config';
+import 'reflect-metadata';
 import * as cookieParser from 'cookie-parser';
 
 async function bootstrap() {

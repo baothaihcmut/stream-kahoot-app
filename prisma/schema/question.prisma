@@ -11,10 +11,9 @@ model Question {
 model Choice {
   id         String      @id @default(uuid())
   text       String   // Nội dung đáp án
-  isCorrect  Boolean  // Đây có phải đáp án đúng không?
+  isCorrect  Boolean  @default(false)
   questionId String
-  question   Question @relation(fields: [questionId] , references: [id])
-  answer     MCQAnswer     
+  question   Question @relation(fields: [questionId] , references: [id])     
 }
 
 model Category {

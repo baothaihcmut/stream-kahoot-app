@@ -9,12 +9,12 @@ import {
   Param,
   Put,
 } from '@nestjs/common';
-import { CreateQuestionDto } from '../applications/dtos/create-question.dto';
-import { QuestionService } from '../applications/services/question.service';
 import { AppResponse } from 'src/common/response/response';
 import { StatusCodes } from 'http-status-codes';
 import { Response } from 'express';
-import { Question } from '../domain/entities/question.entity';
+import { QuestionService } from '../../applications/usecases/question.usecase';
+import { CreateQuestionDto } from '../dtos/create-question.dto';
+import { Question } from '../../domain/entities/question.entity';
 
 @Controller('questions')
 export class QuestionController {

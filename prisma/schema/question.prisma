@@ -14,6 +14,7 @@ model Choice {
   isCorrect  Boolean  // Đây có phải đáp án đúng không?
   questionId String
   question   Question @relation(fields: [questionId] , references: [id])
+  answer     MCQAnswer     
 }
 
 model Category {

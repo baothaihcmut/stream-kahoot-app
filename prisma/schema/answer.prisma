@@ -1,0 +1,38 @@
+model Answer {
+  id          String      @id @default(uuid())
+  questionId  String
+  userId      String
+  type        AnswerType
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  // Relations
+  question    Question    @relation(fields: [questionId], references: [id])
+  user        User        @relation(fields: [userId], references: [id])
+  mcqAnswer   MCQAnswer?
+  essayAnswer EssayAnswer?
+}
+
+model MCQAnswer {
+  id        String   @id @default(uuid())
+  answerId  String   @unique
+  choiceId  String
+
+  // Relations
+  answer    Answer   @relation(fields: [answerId], references: [id])
+  choices   Choice[]   
+}
+
+model EssayAnswer {
+  id        String   @id @default(uuid())
+  answerId  String   @unique
+  content   String
+
+  // Relations
+  answer    Answer   @relation(fields: [answerId], references: [id])
+}
+
+enum AnswerType {
+  MCQ
+  ESSAY
+}

@@ -24,6 +24,7 @@ export class UserRepository {
       data.currentRefreshToken,
     );
   }
+
   async findUserByEmail(email: string): Promise<User> {
     const res = await this.prismaService.user.findFirst({
       where: {
@@ -32,6 +33,7 @@ export class UserRepository {
     });
     return res ? this.mapToDomainUser(res) : null;
   }
+
   async createUser(user: User): Promise<void> {
     await this.prismaService.user.create({
       data: {

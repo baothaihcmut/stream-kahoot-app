@@ -7,7 +7,7 @@ import {
 import { Observable } from 'rxjs';
 import { ContextService, USER_CONTEXT_KEY } from '../context/context.service';
 import { Request } from 'express';
-import { AccessTokenPayload } from 'src/modules/auth/services/jwt.service';
+import { AccessTokenPayload } from 'src/modules/auth/application/models/access_token_payload.model';
 
 @Injectable()
 export class UserContextInterceptor implements NestInterceptor {

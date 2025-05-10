@@ -14,7 +14,8 @@ async function bootstrap() {
       instance: logger,
     }),
   });
+  app.setGlobalPrefix(cfgService.get<string>('app.prefix'));
   app.use(cookieParser());
-  await app.listen(cfgService.get<number>('port') || 3000);
+  await app.listen(cfgService.get<number>('server.port') || 3000);
 }
 bootstrap();

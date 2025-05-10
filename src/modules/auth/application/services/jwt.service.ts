@@ -5,18 +5,10 @@ import { UUID } from 'crypto';
 import {
   JWTAccessTokenSecretKey,
   JWTRefreshTokenAgeKey,
-  JWTRefreshTokenSecretKey,
 } from 'src/common/constance';
-import { Role } from 'src/common/enums/role.enum';
+import { AccessTokenPayload } from '../models/access_token_payload.model';
+import { RefreshTokenPayload } from '../models/refresh_token_payload.model';
 
-export interface AccessTokenPayload {
-  userId: UUID;
-  role: Role;
-}
-
-export interface RefreshTokenPayload {
-  userId: UUID;
-}
 @Injectable()
 export class JwtUtilService {
   constructor(

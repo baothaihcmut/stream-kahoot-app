@@ -1,6 +1,5 @@
 import { forwardRef, Module } from '@nestjs/common';
 import { CommonModule } from 'src/common/common.module';
-import { GoogleController } from './controllers/google.controller';
 import { UsersModule } from '../users/users.module';
 import { HttpModule } from '@nestjs/axios';
 import { JwtModule } from '@nestjs/jwt';
@@ -10,8 +9,10 @@ import {
   JWTAccessTokenSecretKey,
 } from 'src/common/constance';
 import { PassportModule } from '@nestjs/passport';
-import { GoogleInteractor } from './interactors/google.interactor';
-import { JwtUtilService } from './services/jwt.service';
+import { JwtUtilService } from './application/services/jwt.service';
+import { GoogleUseCase } from './application/usecase/google.usecase';
+import { GoogleController } from './presentations/rest/controllers/google.controller';
+import { GoogleRestMapper } from './infrastructure/mappers/rest/google.mapper';
 
 @Module({
   imports: [
@@ -29,7 +30,7 @@ import { JwtUtilService } from './services/jwt.service';
     UsersModule,
     HttpModule,
   ],
-  providers: [GoogleInteractor, JwtUtilService],
+  providers: [GoogleUseCase, JwtUtilService, GoogleRestMapper],
   controllers: [GoogleController],
 })
 export class AuthModule {}

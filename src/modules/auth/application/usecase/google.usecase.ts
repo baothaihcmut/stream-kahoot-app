@@ -1,12 +1,7 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { ContextService } from 'src/common/context/context.service';
-import { UserRepository } from 'src/modules/users/repositories/user.repository';
-import {
-  GoogleExchangeTokenInput,
-  GoogleExchangeTokenOutput,
-} from '../presenters/google_login.presenter';
+
 import { User } from 'src/modules/users/domain/entities/user';
-import { JwtUtilService } from '../services/jwt.service';
 import { Role } from 'src/common/enums/role.enum';
 import { ConfigService } from '@nestjs/config';
 import { firstValueFrom } from 'rxjs';
@@ -16,19 +11,19 @@ import {
   GOOGLE_OAUTH_CALLBACK_URL,
 } from 'src/common/constance';
 import { HttpService } from '@nestjs/axios';
-
-export interface UserGoogle {
-  email: string;
-  firstName: string;
-  lastName: string;
-  picture: string;
-}
+import { JwtUtilService } from '../services/jwt.service';
+import {
+  GoogleExchangeTokenInput,
+  GoogleExchangeTokenOutput,
+} from '../presenters/google_login.presenter';
+import { UserGoogle } from '../models/user_google.model';
+import { USER_PRISMA_REPO } from 'src/modules/users/infrastructure/prisma/user.prisma';
+import { UserRepository } from 'src/modules/users/domain/repositories/user.repository';
 
 @Injectable()
-export class GoogleInteractor {
+export class GoogleUseCase {
   constructor(
-    private readonly contextService: ContextService,
-    private readonly userRepo: UserRepository,
+    @Inject(USER_PRISMA_REPO) private readonly userRepo: UserRepository,
     private readonly jwtService: JwtUtilService,
     private readonly configService: ConfigService,
     private readonly httpService: HttpService,

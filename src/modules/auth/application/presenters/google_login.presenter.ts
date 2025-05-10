@@ -1,7 +1,7 @@
-import { IsNotEmpty } from 'class-validator';
+import { AutoMap } from '@automapper/classes';
 
 export class GoogleExchangeTokenInput {
-  @IsNotEmpty({ message: 'auth code is required' })
+  @AutoMap()
   authCode: string;
 }
 

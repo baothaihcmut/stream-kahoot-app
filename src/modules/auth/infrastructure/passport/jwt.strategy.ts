@@ -3,8 +3,8 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JWTAccessTokenSecretKey } from 'src/common/constance';
-import { AccessTokenPayload } from '../services/jwt.service';
 import { Request } from 'express';
+import { AccessTokenPayload } from '../../application/models/access_token_payload.model';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {

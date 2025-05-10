@@ -1,10 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { User } from '../domain/entities/user';
+import { User } from '../../domain/entities/user';
 import { PrismaService } from 'src/common/prisma/prisma.service';
 import { UUID } from 'crypto';
+import { UserRepository } from '../../domain/repositories/user.repository';
+
+export const USER_PRISMA_REPO = Symbol('user-prisma-repo');
 
 @Injectable()
-export class UserRepository {
+export class UserPrisma implements UserRepository {
   constructor(private readonly prismaService: PrismaService) {}
 
   private mapToDomainUser(data: {

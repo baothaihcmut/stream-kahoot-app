@@ -1,32 +1,33 @@
-import {
-  Body,
-  Controller,
-  Get,
-  HttpStatus,
-  Post,
-  Query,
-  Res,
-  UseGuards,
-} from '@nestjs/common';
+import { Controller, Get, HttpStatus, Post, Query, Res } from '@nestjs/common';
 import {
   ResponseMessage,
   ResponseStatus,
 } from 'src/common/decorators/response.decorator';
-import { GoogleInteractor } from '../interactors/google.interactor';
 import { Response } from 'express';
-import { GoogleExchangeTokenInput } from '../presenters/google_login.presenter';
+import { GoogleUseCase } from 'src/modules/auth/application/usecase/google.usecase';
+import {
+  ExchangeTokenGoogleRequestDTO,
+  ExchangeTokenGoogleResponseDTO,
+} from '../dtos/exchange_token_google.dto';
+import { GoogleRestMapper } from 'src/modules/auth/infrastructure/mappers/rest/google.mapper';
+
 @Controller('google')
 export class GoogleController {
-  constructor(private readonly googleInteractor: GoogleInteractor) {}
+  constructor(
+    private readonly googleInteractor: GoogleUseCase,
+    private readonly googleMapper: GoogleRestMapper,
+  ) {}
 
   @Post('/exchange')
   @ResponseStatus(HttpStatus.CREATED)
   @ResponseMessage('exchange token success')
   async exchangeToken(
-    @Query() input: GoogleExchangeTokenInput,
+    @Query() input: ExchangeTokenGoogleRequestDTO,
     @Res({ passthrough: true }) res: Response,
-  ): Promise<{}> {
-    const result = await this.googleInteractor.exchangeToken(input);
+  ): Promise<ExchangeTokenGoogleResponseDTO> {
+    const result = await this.googleInteractor.exchangeToken(
+      this.googleMapper.toExchangeGoogleTokenInput(input),
+    );
     res.cookie('access_token', result.accessToken, {
       httpOnly: true,
       secure: false,
@@ -39,7 +40,7 @@ export class GoogleController {
       maxAge: 1000 * 60 * 60 * 24 * 3,
       domain: '.spsohcmut.xyz',
     });
-    return {};
+    return new ExchangeTokenGoogleResponseDTO();
   }
 
   @Get('/log-in')

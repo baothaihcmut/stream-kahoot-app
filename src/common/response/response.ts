@@ -1,7 +1,14 @@
-export class AppResponse {
+import { ApiProperty } from '@nestjs/swagger';
+
+export class AppResponse<T = any> {
+  @ApiProperty({ type: 'boolean' })
   success: boolean;
+
+  @ApiProperty({ type: 'string' })
   message: string;
-  data: any;
+
+  @ApiProperty()
+  data: T;
 
   constructor(success: boolean, message: string, data: any) {
     this.success = success;

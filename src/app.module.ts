@@ -9,9 +9,10 @@ import { AppExceptionFilter } from './common/filters/app_exception.filter';
 import { HttpExceptionFilter } from './common/filters/http_exception.filter';
 import { TransformInterceptor } from './common/interceptors/transform.interceptor';
 import { UserContextInterceptor } from './common/interceptors/user_context.interceptor';
+import { RoomsModule } from './modules/rooms/rooms.module';
 
 @Module({
-  imports: [CommonModule, UsersModule, AuthModule],
+  imports: [CommonModule, UsersModule, AuthModule, RoomsModule],
   controllers: [],
   providers: [
     {

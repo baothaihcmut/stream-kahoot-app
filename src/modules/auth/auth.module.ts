@@ -32,5 +32,6 @@ import { GoogleRestMapper } from './infrastructure/mappers/rest/google.mapper';
   ],
   providers: [GoogleUseCase, JwtUtilService, GoogleRestMapper],
   controllers: [GoogleController],
+  exports: [JwtUtilService],
 })
 export class AuthModule {}

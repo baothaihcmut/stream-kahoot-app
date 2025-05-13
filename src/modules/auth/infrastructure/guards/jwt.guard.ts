@@ -1,15 +1,25 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
+import {
+  CanActivate,
+  ExecutionContext,
+  HttpException,
+  HttpStatus,
+  Injectable,
+} from '@nestjs/common';
+import { Request } from 'express';
+import { Observable } from 'rxjs';
+import { JwtUtilService } from '../../application/services/jwt.service';
 
 @Injectable()
-export class JwtAuthGuard extends AuthGuard('jwt') {
-  constructor() {
-    super();
-  }
-  handleRequest(err: any, user: any): any {
-    if (err || !user) {
-      throw new HttpException('token is required', HttpStatus.UNAUTHORIZED);
+export class JwtAuthGuard implements CanActivate {
+  constructor(private readonly jwtService: JwtUtilService) {}
+  async canActivate(context: ExecutionContext): Promise<boolean> {
+    const req = context.switchToHttp().getRequest<Request>();
+    const token = req.cookies['access_token'];
+    if (!token) {
+      throw new HttpException('token required', HttpStatus.UNAUTHORIZED);
     }
-    return user;
+    const tokenPayload = await this.jwtService.verifyAccessToken(token);
+    req.user = tokenPayload;
+    return true;
   }
 }

@@ -1,8 +1,7 @@
 import { AutoMap } from '@automapper/classes';
 
 export class GoogleExchangeTokenInput {
-  @AutoMap()
-  authCode: string;
+  constructor(public authCode: string) {}
 }
 
 export class GoogleExchangeTokenOutput {

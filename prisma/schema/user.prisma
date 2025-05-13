@@ -5,5 +5,7 @@ model User {
     email               String  @unique @map("email")
     picture             String @map("picture")
     currentRefreshToken String? @map("current_refresh_token")
+    hostRooms               Room[] 
+    participantRooms         RoomParticipant[] 
     @@map("users")
 }

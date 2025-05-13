@@ -1,0 +1,11 @@
+model RoomParticipant {
+    id String @id
+    userId String
+    user User @relation(fields: [userId],references: [id])
+    roomId String
+    room Room @relation(fields: [roomId],references: [id])
+    joinAt DateTime @map("join_at")
+    leaveAt DateTime @map("leave_at")
+    isJoin Boolean @map("is_join")
+    @@map("participant_rooms")
+}

@@ -1,0 +1,20 @@
+model Room {
+    id                  String  @id
+    title               String
+    description         String?
+    hostId              String @map("host_id")  
+    host                User @relation(fields: [hostId],references: [id])
+    inviteToken         String @map("invite_token")
+    streamKey           String @map("stream_key")
+    createdAt           DateTime @map("created_at")
+    startedAt           DateTime @map("started_at")
+    status              RoomStatus
+    participants        RoomParticipant[]  
+    maxParticipant      Int @map("max_participant")
+    @@map("rooms")
+}
+
+
+enum RoomStatus {
+    STARTED
+}

@@ -28,13 +28,6 @@ export class RoomOutput {
   maxParticipant: number;
 
   constructor(room: Room) {
-    this.id = room.id;
-    this.title = room.title;
-    this.description = room.description;
-    this.hostId = room.hostId;
-    this.createdAt = room.createdAt;
-    this.startedAt = room.startedAt;
-    this.status = room.status;
-    this.maxParticipant = room.maxParticipant;
+    Object.assign(this, room);
   }
 }

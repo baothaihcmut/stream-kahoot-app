@@ -1,18 +1,16 @@
 import { Module } from '@nestjs/common';
 import { CommonModule } from 'src/common/common.module';
-import {
-  USER_PRISMA_REPO,
-  UserPrisma,
-} from './infrastructure/prisma/user.prisma';
+import { PrismaUserRepository } from './infrastructure/prisma/prisma_user.repository';
+import { UserRepositoryToken } from './domain/repositories/user.repository';
 
 @Module({
   imports: [CommonModule],
   providers: [
     {
-      provide: USER_PRISMA_REPO,
-      useClass: UserPrisma,
+      provide: UserRepositoryToken,
+      useClass: PrismaUserRepository,
     },
   ],
-  exports: [USER_PRISMA_REPO],
+  exports: [UserRepositoryToken],
 })
 export class UsersModule {}

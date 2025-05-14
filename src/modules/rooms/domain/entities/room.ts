@@ -5,7 +5,7 @@ export class Room {
   constructor(
     public id: UUID,
     public title: string,
-    public hostId: string,
+    public hostId: UUID,
     public streamKey: string,
     public inviteToken: string,
     public createdAt: Date,
@@ -18,7 +18,7 @@ export class Room {
   static newRoom(params: {
     title: string;
     description?: string;
-    hostId: string;
+    hostId: UUID;
     startedAt: Date;
     maxParticipant: number;
   }): Room {

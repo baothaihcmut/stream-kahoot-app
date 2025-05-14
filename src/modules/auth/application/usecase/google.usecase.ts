@@ -17,13 +17,15 @@ import {
   GoogleExchangeTokenOutput,
 } from '../presenters/google_login.presenter';
 import { UserGoogle } from '../models/user_google.model';
-import { USER_PRISMA_REPO } from 'src/modules/users/infrastructure/prisma/user.prisma';
-import { UserRepository } from 'src/modules/users/domain/repositories/user.repository';
+import {
+  UserRepository,
+  UserRepositoryToken,
+} from 'src/modules/users/domain/repositories/user.repository';
 
 @Injectable()
 export class GoogleUseCase {
   constructor(
-    @Inject(USER_PRISMA_REPO) private readonly userRepo: UserRepository,
+    @Inject(UserRepositoryToken) private readonly userRepo: UserRepository,
     private readonly jwtService: JwtUtilService,
     private readonly configService: ConfigService,
     private readonly httpService: HttpService,

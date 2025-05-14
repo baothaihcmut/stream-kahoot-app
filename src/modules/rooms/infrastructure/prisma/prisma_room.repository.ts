@@ -9,6 +9,14 @@ import { UUID } from 'crypto';
 @Injectable()
 export class PrismaRoomRepository implements RoomRepository {
   constructor(private readonly prismaService: PrismaService) {}
+  async findRoomById(id: UUID): Promise<RoomDomain> {
+    const result = await this.prismaService.room.findFirst({
+      where: {
+        id: id,
+      },
+    });
+    return result ? this.toRoomDomain(result) : null;
+  }
 
   async findRoomByHostIdAndCount(
     hostId: string,
@@ -36,7 +44,7 @@ export class PrismaRoomRepository implements RoomRepository {
     return new RoomDomain(
       room.id as UUID,
       room.title,
-      room.hostId,
+      room.hostId as UUID,
       room.streamKey,
       room.inviteToken,
       room.createdAt,

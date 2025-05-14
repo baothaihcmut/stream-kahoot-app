@@ -4,11 +4,17 @@ import { PrismaService } from 'src/common/prisma/prisma.service';
 import { UUID } from 'crypto';
 import { UserRepository } from '../../domain/repositories/user.repository';
 
-export const USER_PRISMA_REPO = Symbol('user-prisma-repo');
-
 @Injectable()
-export class UserPrisma implements UserRepository {
+export class PrismaUserRepository implements UserRepository {
   constructor(private readonly prismaService: PrismaService) {}
+  async findUserById(id: UUID): Promise<User> {
+    const result = await this.prismaService.user.findFirst({
+      where: {
+        id,
+      },
+    });
+    return this.mapToDomainUser(result);
+  }
 
   private mapToDomainUser(data: {
     id: string;

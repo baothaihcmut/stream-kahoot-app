@@ -97,8 +97,6 @@ export class GoogleUseCase {
     user.updateRefreshToken(refreshToken);
     //update refresh token
     await this.userRepo.updateUser(user);
-    console.log(await this.jwtService.verifyAccessToken(accessToken));
-    console.log(accessToken);
     return new GoogleExchangeTokenOutput(accessToken, refreshToken);
   }
 }

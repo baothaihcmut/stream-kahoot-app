@@ -1,12 +1,11 @@
-import { PaginationParam } from 'src/common/params/pagination.param';
 import { RoomOutput } from './room.presenter';
 import { AutoMap } from '@automapper/classes';
 import { Room } from '../../domain/entities/room';
 import { PaginationOutput } from 'src/common/output/pagination.output';
 
 export class GetHostRoomInput {
-  @AutoMap(() => PaginationParam)
-  pagination: PaginationParam;
+  offset: number;
+  limit: number;
 }
 
 export class GetHostRoomOutput {

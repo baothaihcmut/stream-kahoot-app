@@ -1,9 +1,10 @@
 import {
   Body,
   Controller,
+  Get,
   HttpStatus,
-  Injectable,
   Post,
+  Query,
   UseGuards,
   UsePipes,
 } from '@nestjs/common';
@@ -19,7 +20,11 @@ import {
 import { ValidateInputPipe } from 'src/common/pipes/validate.pipe';
 import { RestRoomMapper } from 'src/modules/rooms/infrastructure/mappers/rest/rest_room.mapper';
 import { JwtAuthGuard } from 'src/modules/auth/infrastructure/guards/jwt.guard';
-import { ApiOkResponse } from '@nestjs/swagger';
+import { ApiOkResponse, ApiQuery } from '@nestjs/swagger';
+import {
+  GetHostRoomRequestDTO,
+  GetHostRoomResponseDTO,
+} from '../dtos/get_host_room.dto';
 
 @Controller('rooms')
 export class RoomController {
@@ -41,5 +46,20 @@ export class RoomController {
       this.roomMapper.toCreateRoomInput(request),
     );
     return this.roomMapper.toCreateRoomResponseDTO(res);
+  }
+
+  @Get('/host-rooms')
+  @ResponseMessage('get host room success')
+  @ResponseStatus(HttpStatus.OK)
+  @UsePipes(ValidateInputPipe)
+  @UseGuards(JwtAuthGuard)
+  @ApiOkResponse({ type: GetHostRoomResponseDTO })
+  async getHostRoom(
+    @Query() params: GetHostRoomRequestDTO,
+  ): Promise<GetHostRoomResponseDTO> {
+    const result = await this.roomUseCase.getHostRoom(
+      this.roomMapper.toGetHostRoomInput(params),
+    );
+    return this.roomMapper.toGetHostRoomResponseDTO(result);
   }
 }

@@ -29,7 +29,7 @@ export class PrismaRoomRepository implements RoomRepository {
         },
       }),
     ]);
-    return [data.map(this.toRoomDomain), count];
+    return [data.map((room) => this.toRoomDomain(room)), count];
   }
 
   private toRoomDomain(room: Room): RoomDomain {

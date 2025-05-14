@@ -43,16 +43,12 @@ export class RoomUseCase {
     const userContext = this.contextService.get<UserContext>(USER_CONTEXT_KEY);
     const [data, count] = await this.roomRepo.findRoomByHostIdAndCount(
       userContext.userId,
-      input.pagination.limit,
-      input.pagination.skip,
+      input.limit,
+      input.offset,
     );
     return new GetHostRoomOutput(
       data,
-      PaginationOutput.from(
-        count,
-        input.pagination.skip,
-        input.pagination.limit,
-      ),
+      PaginationOutput.from(count, input.offset, input.limit),
     );
   }
 }

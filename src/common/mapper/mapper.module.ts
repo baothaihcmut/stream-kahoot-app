@@ -1,6 +1,7 @@
 import { classes } from '@automapper/classes';
 import { AutomapperModule } from '@automapper/nestjs';
 import { Module } from '@nestjs/common';
+import { PaginationMapper } from './pagination.mapper';
 
 @Module({
   imports: [
@@ -8,5 +9,7 @@ import { Module } from '@nestjs/common';
       strategyInitializer: classes(),
     }),
   ],
+  providers: [PaginationMapper],
+  exports: [PaginationMapper],
 })
 export class MapperModule {}

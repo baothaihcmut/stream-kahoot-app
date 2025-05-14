@@ -41,7 +41,6 @@ export class GoogleController {
     const result = await this.googleInteractor.exchangeToken(
       new GoogleExchangeTokenInput(authCode),
     );
-    console.log(result.accessToken);
     res.cookie('access_token', result.accessToken, {
       httpOnly: true,
       secure: false,

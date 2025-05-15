@@ -9,6 +9,7 @@ import { AppExceptionFilter } from './common/filters/app_exception.filter';
 import { HttpExceptionFilter } from './common/filters/http_exception.filter';
 import { TransformInterceptor } from './common/interceptors/transform.interceptor';
 import { UserContextInterceptor } from './common/interceptors/user_context.interceptor';
+import { RoomsModule } from './modules/rooms/rooms.module';
 import { QuestionModule } from './modules/question/question.module';
 import { AutomapperModule } from '@automapper/nestjs';
 // import { MapperModule } from './common/mapper/mapper.module';
@@ -21,6 +22,7 @@ import { AutomapperModule } from '@automapper/nestjs';
     QuestionModule,
     AutomapperModule,
     // MapperModule,
+    RoomsModule,
   ],
   controllers: [],
   providers: [

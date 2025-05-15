@@ -11,6 +11,7 @@ import {
 class ChoiceDto {
   @IsNotEmpty()
   @IsString()
+  @AutoMap()
   id: string; // ID của câu hỏi
 
   @IsString()
@@ -43,7 +44,7 @@ export class QuestionResponseDto {
   // categoryIds: string[]
 
   @IsArray()
-  @AutoMap()
+  @AutoMap(() => [ChoiceDto])
   @ValidateNested({ each: true })
   @Type(() => ChoiceDto)
   choices: ChoiceDto[];

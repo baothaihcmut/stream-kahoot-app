@@ -7,7 +7,6 @@ import {
 import { Observable } from 'rxjs';
 import { ContextService, USER_CONTEXT_KEY } from '../context/context.service';
 import { Request } from 'express';
-import { AccessTokenPayload } from 'src/modules/auth/services/jwt.service';
 
 @Injectable()
 export class UserContextInterceptor implements NestInterceptor {
@@ -18,7 +17,7 @@ export class UserContextInterceptor implements NestInterceptor {
   ): Observable<any> {
     const ctx = context.switchToHttp();
     const req = ctx.getRequest<Request>();
-    const user = req['user'] as AccessTokenPayload;
+    const user = req.user;
     if (user) {
       return new Observable((subscriber) => {
         this.ctxService.run(() => {

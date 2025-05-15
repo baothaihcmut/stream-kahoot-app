@@ -1,8 +1,29 @@
 // src/interfaces/dtos/question.presenter.ts
-import { IsArray, IsBoolean, IsNotEmpty, IsString } from 'class-validator';
+import {
+  IsArray,
+  IsBoolean,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 import { Question } from '../../domain/entities/question.entity';
 import { QuestionResponse } from './question-response.presenter';
 import { AutoMap } from '@automapper/classes';
+
+export class CreateChoice {
+  @IsNotEmpty()
+  @IsString()
+  @AutoMap()
+  id: string; // ID của câu hỏi
+
+  @IsString()
+  @AutoMap()
+  text: string;
+
+  @IsOptional()
+  @AutoMap()
+  isCorrect: boolean = false;
+}
 
 export class CreateQuestionRequest {
   @IsNotEmpty()
@@ -25,7 +46,7 @@ export class CreateQuestionRequest {
   explanation: string; // Giải thích câu trả lời
 
   @IsArray()
-  @AutoMap()
+  @AutoMap(() => [CreateChoice])
   choices: {
     id: string; // ID của lựa chọn
     text: string; // Nội dung lựa chọn

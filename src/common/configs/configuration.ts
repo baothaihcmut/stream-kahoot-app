@@ -1,5 +1,10 @@
 export default () => ({
-  port: parseInt(process.env.APP_PORT, 10) || 3000,
+  server: {
+    port: parseInt(process.env.APP_PORT, 10) || 3000,
+  },
+  app: {
+    prefix: process.env.APP_PREFIX || '/api/v1',
+  },
   database: {
     url: process.env.DATABASE_URL,
   },
@@ -25,6 +30,9 @@ export default () => ({
     clientId: process.env.GOOGLE_OAUTH_CLIENT_ID,
     secret: process.env.GOOGLE_OAUTH_SECRET,
     callbackUrl: process.env.GOOGLE_CALLBACK_URL,
+  },
+  kafka: {
+    brokers: [process.env.KAFKA_BROKER || 'localhost:9092'],
   },
   environment: process.env.NODE_ENV || 'development',
 });

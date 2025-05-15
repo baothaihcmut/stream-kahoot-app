@@ -12,12 +12,13 @@ export class PrismaQuestionRepository implements IQuestionRepository {
   async create(question: Question): Promise<Question> {
     const created = await this.prisma.question.create({
       data: {
-        // id: question.id,
+        id: question.id,
         content: question.content,
         explanation: question.explanation,
         // categories:
         choices: {
           create: question.choices.map((choice) => ({
+            id: choice.id,
             text: choice.text,
             isCorrect: choice.isCorrect,
           })),

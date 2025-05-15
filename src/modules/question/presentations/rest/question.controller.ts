@@ -22,7 +22,7 @@ import { InjectMapper } from '@automapper/nestjs';
 export class QuestionController {
   constructor(
     private readonly questionService: QuestionService,
-    @InjectMapper() private readonly questionMapper: QuestionMapper,
+    private readonly questionMapper: QuestionMapper,
   ) {}
 
   @Post()

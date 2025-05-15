@@ -10,9 +10,10 @@ import { Question } from '../../domain/entities/question.entity';
 import { QuestionResponseDto } from './question-response.dto';
 import { AutoMap } from '@automapper/classes';
 
-class CreateChoiceDto {
+export class CreateChoiceDto {
   @IsNotEmpty()
   @IsString()
+  @AutoMap()
   id: string; // ID của câu hỏi
 
   @IsString()
@@ -41,7 +42,7 @@ export class CreateQuestionRequestDto {
   // categoryIds: string[]
 
   @IsArray()
-  @AutoMap()
+  @AutoMap(() => [CreateChoiceDto])
   @ValidateNested({ each: true })
   @Type(() => CreateChoiceDto)
   choices: CreateChoiceDto[];

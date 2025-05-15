@@ -4,11 +4,12 @@ import { QuestionService } from './applications/usecases/question.usecase';
 import { PrismaQuestionRepository } from './infrastructures/prisma/question.prisma';
 import { IQuestionRepository } from './domain/repositories/question.repository';
 import { QuestionController } from './presentations/rest/question.controller';
-import { MapperModule } from 'src/common/mapper/mapper.module';
+// import { MapperModule } from 'src/common/mapper/mapper.module';
 import { AutomapperModule } from '@automapper/nestjs';
+import { QuestionMapper } from './infrastructures/mappers/rest/question.mapper';
 
 @Module({
-  imports: [CommonModule, MapperModule],
+  imports: [CommonModule],
   controllers: [QuestionController],
   providers: [
     QuestionService,
@@ -16,6 +17,7 @@ import { AutomapperModule } from '@automapper/nestjs';
       provide: IQuestionRepository,
       useClass: PrismaQuestionRepository,
     },
+    QuestionMapper,
   ],
   exports: [IQuestionRepository],
 })

@@ -10,7 +10,8 @@ import { HttpExceptionFilter } from './common/filters/http_exception.filter';
 import { TransformInterceptor } from './common/interceptors/transform.interceptor';
 import { UserContextInterceptor } from './common/interceptors/user_context.interceptor';
 import { QuestionModule } from './modules/question/question.module';
-import { MapperModule } from './common/mapper/mapper.module';
+import { AutomapperModule } from '@automapper/nestjs';
+// import { MapperModule } from './common/mapper/mapper.module';
 
 @Module({
   imports: [
@@ -18,7 +19,8 @@ import { MapperModule } from './common/mapper/mapper.module';
     UsersModule,
     AuthModule,
     QuestionModule,
-    MapperModule,
+    AutomapperModule,
+    // MapperModule,
   ],
   controllers: [],
   providers: [

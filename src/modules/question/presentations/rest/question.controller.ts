@@ -13,19 +13,26 @@ import { AppResponse } from 'src/common/response/response';
 import { StatusCodes } from 'http-status-codes';
 import { Response } from 'express';
 import { QuestionService } from '../../applications/usecases/question.usecase';
-import { CreateQuestionDto } from '../dtos/create-question.dto';
 import { Question } from '../../domain/entities/question.entity';
+import { CreateQuestionRequestDto } from '../dtos/create-question.dto';
+import { QuestionMapper } from '../../infrastructures/mappers/rest/question.mapper';
+import { InjectMapper } from '@automapper/nestjs';
 
 @Controller('questions')
 export class QuestionController {
-  constructor(private readonly questionService: QuestionService) {}
+  constructor(
+    private readonly questionService: QuestionService,
+    @InjectMapper() private readonly questionMapper: QuestionMapper,
+  ) {}
 
   @Post()
   public async createQuestion(
-    @Body() request: CreateQuestionDto,
+    @Body() request: CreateQuestionRequestDto,
     @Res() res: Response,
   ): Promise<void> {
-    const question = await this.questionService.create(request);
+    const question = await this.questionService.create(
+      this.questionMapper.toCreateQuestionRequest(request),
+    );
     res
       .status(StatusCodes.CREATED)
       .json(new AppResponse(true, 'Created Question Successful!', question));

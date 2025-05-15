@@ -1,3 +1,4 @@
+import { AutoMap } from '@automapper/classes';
 import { Type } from 'class-transformer';
 import {
   IsArray,
@@ -6,11 +7,8 @@ import {
   IsString,
   ValidateNested,
 } from 'class-validator';
-import { Question } from '../../domain/entities/question.entity';
-import { QuestionResponseDto } from './question-response.dto';
-import { AutoMap } from '@automapper/classes';
 
-class CreateChoiceDto {
+class ChoiceDto {
   @IsNotEmpty()
   @IsString()
   id: string; // ID của câu hỏi
@@ -24,7 +22,11 @@ class CreateChoiceDto {
   isCorrect: boolean = false;
 }
 
-export class CreateQuestionRequestDto {
+export class QuestionResponseDto {
+  @IsNotEmpty()
+  @IsString()
+  id: string; // ID của câu hỏi
+
   @IsString()
   @AutoMap()
   content: string;
@@ -43,8 +45,6 @@ export class CreateQuestionRequestDto {
   @IsArray()
   @AutoMap()
   @ValidateNested({ each: true })
-  @Type(() => CreateChoiceDto)
-  choices: CreateChoiceDto[];
+  @Type(() => ChoiceDto)
+  choices: ChoiceDto[];
 }
-
-export class CreateQuestionResponseDto extends QuestionResponseDto {}

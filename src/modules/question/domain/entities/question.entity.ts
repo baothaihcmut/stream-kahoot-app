@@ -1,4 +1,4 @@
-import { UUID } from 'crypto';
+import { randomUUID, UUID } from 'crypto';
 
 export class Choice {
   constructor(
@@ -18,4 +18,26 @@ export class Question {
     public createdAt?: Date,
     public updatedAt?: Date,
   ) {}
+
+  static newQuestion(params: {
+    content: string;
+    explanation?: string;
+    choices: { text: string; isCorrect?: boolean }[];
+  }): Question {
+    const now = new Date();
+
+    const choices = params.choices.map(
+      (choice) =>
+        new Choice(randomUUID(), choice.text, choice.isCorrect ?? false),
+    );
+
+    return new Question(
+      randomUUID(),
+      params.content,
+      params.explanation,
+      choices,
+      now,
+      now,
+    );
+  }
 }
